@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="/resources/css/header.css" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/templates/register/content.xhtml">
+
+		<ui:define name="windowTitleC">#{msgs.registerTitle}</ui:define>
+		<!-- 				<f:selectItems value="#{userRegisterEdit.typeItems}" />
+					<f:selectItem itemValue="#{userRegisterEdit.Type.CLIENT}" itemLabel="#{msgs.client}"/>
+				<f:selectItem itemValue="#{userRegisterEdit.Type.EMPLOYEE}" itemLabel="#{msgs.employee}"/>
+			
+		 -->
+		<ui:define name="type">
+			<p:outputLabel for="type" styleClass="block">#{msgs.type}</p:outputLabel>
+			<p:selectOneMenu value="#{userRegisterEdit.type}" id="type"
+				required="true" requiredMessage="#{msgs.requiredType}"
+				validatorMessage="#{msgs.validType}">				
+					<f:selectItems value="#{userRegisterEdit.typeItems}" />
+			</p:selectOneMenu>
+<!-- 			<p:message for="type" autoUpdate="true" id="msgsType"
+				style="color:red;" /> -->
+		</ui:define>
+		<!-- 				update="msgsType msgsPhoneNumber msgsBirthDate growl msgsUserName  msgsName msgsPassword msgsMail msgsType msgsAddress msgsSalary"
+		 -->
+		<ui:define name="button">
+			<p:commandButton value="#{msgs.signUp}"
+				update="growl"
+				action="#{userRegisterEdit.create}"
+				style="background-color:green; float:#{view.locale.language eq 'ar' ? 'left' : 'right'};
+				 width:100px; border-color:green" />
+			 <p:growl id="growl" showDetail="true" />
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

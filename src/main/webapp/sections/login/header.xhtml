@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="windowTilte" /> <h:outputStylesheet
+			library="css" name="style.css" /></title>
+</h:head>
+
+<h:body>
+	<ui:composition>
+		<div class="header">
+			<p:headerRow>
+				<p:column colspan="30">
+					<h:form>
+						<div class="inline-flex align-items-center "
+							style="vertical-align: middle; margin-bottom: 20px; margin-top: 20px">
+							<h:commandLink style="text-decoration:none"
+								rendered="#{userLogin.isLogged}"
+								action="#{accountBean.isClientRedirectHome}">
+								<p:graphicImage name="bankLogo02.png" library="images"
+									width="50" style="vertical-align:middle" />
+								<h:outputText styleClass="ml-2 " value="#{msgs.bankName}"
+									style="	margin: 30px; color: red;font-family: fantasy; font-size:25px;vertical-align:middle " />
+							</h:commandLink>
+
+							<h:commandLink style="text-decoration:none"
+								rendered="#{not userLogin.isLogged}"
+								action="#{userLogin.isLoggedRedirectHome}">
+								<p:graphicImage name="bankLogo02.png" library="images"
+									width="50" style="vertical-align:middle" />
+								<h:outputText styleClass="ml-2 " value="#{msgs.bankName}"
+									style="	margin: 30px; color: red;font-family: fantasy; font-size:25px;vertical-align:middle " />
+							</h:commandLink>
+
+							<ui:insert name="logout">
+								<p:commandButton action="#{userLogin.logout}"
+									rendered="#{userLogin.isLogged}" value="#{msgs.logout}"
+									style="padding-right:0;
+									float:#{view.locale.language eq 'ar' ? 'left' : 'right'};
+									height:33px; margin-right:5px;
+			       					 vertical-align: middle; font-size:12px;
+			       					 background-color:rgb(154, 42, 42); border-color:rgb(154, 42, 42)">
+								</p:commandButton>
+							</ui:insert>
+
+
+							<ui:insert name="icon" />
+
+
+
+							<h:commandLink
+								style="text-decoration: none; margin-left:20%; height:10%;"
+								actionListener="#{language.countryLocaleCodeEnglish}">
+								<p:graphicImage library="images" name="english.png"
+									style="float:#{view.locale.language eq 'ar' ? 'left' : 'right'};
+						 				width:33px; padding:3px;
+						 				height:33px;margin-right:5px;
+						 				vertical-align: middle;" />
+							</h:commandLink>
+							<h:commandLink
+								style="text-decoration: none; margin-left:20%;
+ 								 						height:10%"
+								actionListener="#{language.countryLocaleCodeArabic}">
+								<p:graphicImage library="images" name="arabic.png"
+									style="float:#{view.locale.language eq 'ar' ? 'left' : 'right'}; 
+    										width:33px ;margin-right:5px;
+    										padding: 3px;height:33px; 
+    										vertical-align: middle;" />
+							</h:commandLink>
+
+						</div>
+
+					</h:form>
+				</p:column>
+			</p:headerRow>
+		</div>
+	</ui:composition>
+</h:body>
+</html>

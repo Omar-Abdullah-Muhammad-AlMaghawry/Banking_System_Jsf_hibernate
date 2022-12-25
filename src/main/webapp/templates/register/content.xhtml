@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+    	<link type="text/css" rel="stylesheet" href="/resources/css/header.css" />
+    </h:head>
+
+    <h:body>
+       <ui:composition template="/templates/masterLayout.xhtml">
+	       	<ui:define name="windowTilte">
+	       		<ui:insert name="windowTitleC"></ui:insert>
+	       	</ui:define>
+	       	
+		    <ui:define name="heading">
+		       		<ui:include src="/sections/login/header.xhtml" />
+	       	</ui:define>
+	       	
+	       	<ui:define name="content">
+	       		<div  class="card login-panel ui-fluid" style="margin: auto; width:40%; 
+	       			background-color: rgba(255,255,255,0.8); 
+	       			padding:30px;">
+	       			<h:form>
+			       	    <h:panelGrid columns="3"  style="margin: auto;">
+   	    	  				
+			
+   	    	  				<p:outputLabel for="userName" styleClass="block">#{msgs.userName}</p:outputLabel>
+							<p:inputText id="userName" value="#{userRegisterEdit.userName}" required="true" 
+										label="#{msgs.userName}" requiredMessage="#{msgs.requiredUserName}" 
+										validatorMessage="#{msgs.validUserName}"/>
+<!-- 							<p:message for="userName" autoUpdate="true" id="msgsUserName" style="color:red;"/>
+ -->			    		
+			        		<p:outputLabel for="password" styleClass="block" >#{msgs.password}</p:outputLabel>
+	            			<p:password id="password" toggleMask="true"  value="#{userRegisterEdit.password}" required="true" 
+	            						label="#{msgs.password}" requiredMessage="#{msgs.requiredPassword}"
+	            					 	validatorMessage="#{msgs.validPassword}" >
+	            					 
+	            				 <f:validateRegex
+	            				  	pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^+=]).{5,}$" />
+	       	     			</p:password>
+<!-- 		   					<p:message for="password" autoUpdate="true" id="msgsPassword"  closable="true" style="color:red;"/>
+ -->		   					
+		   					<ui:insert name="newPassword"/>
+		   					
+			       			<p:outputLabel for="mail" styleClass="block">#{msgs.mail}</p:outputLabel>
+		   					<p:inputText id="mail" value="#{userRegisterEdit.mail}" required="true" label="#{msgs.mail}" 
+		   								requiredMessage="#{msgs.requiredMail}" validatorMessage="#{msgs.validMail}">
+		   						<f:validateRegex 
+		   							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+		   					</p:inputText>
+<!-- 		   					<p:message for="mail" autoUpdate="true" id="msgsMail"  style="color:red;"/>
+ -->		    	    	  	
+		    	    	  	
+		    	    	  	<p:outputLabel for="name" styleClass="block">#{msgs.name}</p:outputLabel>
+							<p:inputText id="name" value="#{userRegisterEdit.name}" required="true" 
+										label="#{msgs.name}" requiredMessage="#{msgs.requiredName}" 
+										validatorMessage="#{msgs.validName}"/>
+<!-- 							<p:message for="name" autoUpdate="true" id="msgsName" style="color:red;"/>
+ -->		   					
+						
+							<p:outputLabel for="phoneNumber" styleClass="block">#{msgs.phoneNumber}</p:outputLabel>
+		   					<p:inputText id="phoneNumber" value="#{userRegisterEdit.mobile}" required="true" maxlength="11"
+											onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+		  
+		   								label="#{msgs.phoneNumber}" requiredMessage="#{msgs.requiredPhoneNumber}">
+		   								
+		   					<f:validateLongRange />
+							<p:ajax update="growl"  event="keyup"/>
+		   								
+		   					</p:inputText>
+<!-- 		   					<p:message for="phoneNumber" autoUpdate="true" id="msgsPhoneNumber"  style="color:red;"/>
+ -->		   					
+		   					
+		   					
+		   					<p:outputLabel for="address" styleClass="block">#{msgs.address}</p:outputLabel>
+		   					<p:inputText id="address" value="#{userRegisterEdit.address}" required="true" 
+		   								label="#{msgs.address}" requiredMessage="#{msgs.requiredAddress}"/>
+<!-- 		   					<p:message for="address" autoUpdate="true" id="msgsAddress"  style="color:red;"/>
+ -->		   					
+				
+						
+							<p:outputLabel for="salary" styleClass="block">#{msgs.salary}</p:outputLabel>
+							<p:inputText id="salary" label="#{msgs.salary}" requiredMessage="#{msgs.requiredSalary}"
+											value="#{userRegisterEdit.salary}" required="true"
+											validatorMessage="#{msgs.validSalary}"							
+											onkeypress="if(event.which &lt; 46 || event.which &gt; 57 ) return false;"
+							>
+							<f:convertNumber minFractionDigits="2" />
+							<f:validateDoubleRange minimum="10" maximum="1000000000" />
+							</p:inputText>
+<!-- 							<p:message for="salary"  autoUpdate="true" id="msgsSalary"  style="color:red;"/>
+ -->							
+				
+				       		<ui:insert name="type"/>
+				       		
+	
+				            <p:outputLabel for="birthDate" value="#{msgs.birthDate}"/>
+				            <p:datePicker id="birthDate" value="#{userRegisterEdit.birthDate}" showIcon="true"
+				         					maxdate="#{userRegisterEdit.maxDate}" readonly="true"
+				          				  validatorMessage="#{msgs.validBirthDate}" requiredMessage="#{msgs.requiredBirthDate}" required="true"/>
+<!-- 				  		   	<p:message for="birthDate"  autoUpdate="true" id="msgsBirthDate" style="color:red;"/>
+ -->				  	   					
+	            			<br />
+				       		<f:facet name="footer">
+		            			<ui:insert name="button" />
+							</f:facet>
+							
+	       				</h:panelGrid>
+			
+
+					</h:form>
+				</div>
+	       	</ui:define>
+       </ui:composition>
+    </h:body>
+</html>

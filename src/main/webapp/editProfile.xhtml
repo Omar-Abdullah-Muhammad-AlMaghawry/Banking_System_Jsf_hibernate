@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="/resources/css/header.css" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/templates/register/content.xhtml">
+<!-- 		<ui:define name="logout">
+			<p:commandButton action="#{userLogin.logout}" value="#{msgs.logout}"
+				style="padding-right:0;
+				float:#{view.locale.language eq 'ar' ? 'left' : 'right'};;
+				height:33px; margin-right:5px;
+	       					 vertical-align: middle; font-size:12px;
+	       					 background-color:rgb(154, 42, 42); border-color:rgb(154, 42, 42)">
+			</p:commandButton>
+		</ui:define> -->
+
+		<ui:define name="windowTitleC">#{msgs.editProfile}</ui:define>
+		<ui:define name="newPassword">
+			<p:outputLabel for="newPassword" styleClass="block">#{msgs.newPassword}</p:outputLabel>
+			<p:password id="newPassword" toggleMask="true"
+				value="#{userRegisterEdit.newPassword}" required="true"
+				label="#{msgs.newPassword}"
+				requiredMessage="#{msgs.requiredPassword}"
+				validatorMessage="#{msgs.validPassword}">
+
+				<f:validateRegex
+					pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^+=])(?=\S+$).{5,}$" />
+			</p:password>
+<!-- 			<p:message for="newPassword" autoUpdate="true" id="msgsNewPassword"
+				closable="true" style="color:red;" /> -->
+
+
+		</ui:define>
+<!-- 				update="msgsPhoneNumber msgsBirthDate msgsPassword msgsName msgsNewPassword msgsMail msgsAddress msgsSalary"
+ -->
+		<ui:define name="button">
+
+			<p:commandButton value="#{msgs.update}" onclick="PF('dlg').show()"
+				style="background-color:green; float:#{view.locale.language eq 'ar' ? 'left' : 'right'};
+				 width:100px; border-color:green" />
+
+
+			<p:dialog header="#{msgs.confirmDialog}" widgetVar="dlg" modal="true"
+				height="100">
+
+				<p:outputLabel>#{msgs.updateConfirmation}</p:outputLabel>
+
+				<h:panelGrid columns="2" cellpadding="10" style="margin-top:10px">
+					<p:commandButton value="#{msgs.cancel}" onclick="PF('dlg').hide()"
+						style="background-color:gray; float:left; width:100px; border-color:gray" />
+					<p:commandButton value="#{msgs.confirm}" update="growl"
+						action="#{userRegisterEdit.update}"
+						style="background-color:green; float:right; width:100px; border-color:green" />
+				</h:panelGrid>
+			 <p:growl id="growl" showDetail="true" />
+
+			</p:dialog>
+
+		</ui:define>
+
+
+
+	</ui:composition>
+</h:body>
+</html>

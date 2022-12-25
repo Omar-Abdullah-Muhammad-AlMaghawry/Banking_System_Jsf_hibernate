@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    	<title>
+    		<ui:insert name= "windowTilte" />
+    	 	<h:outputStylesheet library="css" name="style.css"/>
+    	
+    	</title>
+    </h:head>
+
+    <h:body>
+		<ui:composition>
+			<div class="footer" style="height: 100px; color:white; padding-left: 50px;padding-right: 50px;;padding-top: 10px;font-family: cursive;">
+				<p:outputLabel style=" font-size:20px">#{msgs.contactUs}</p:outputLabel>
+				
+				<h:panelGrid columns="2" style="color:">
+					<p:outputLabel>#{msgs.mail}:</p:outputLabel>
+					<p:outputLabel>#{msgs.realMail}</p:outputLabel>
+					
+					<p:outputLabel>#{msgs.address}:</p:outputLabel>
+					<p:outputLabel>#{msgs.realAddress}</p:outputLabel>
+				
+				</h:panelGrid>
+			</div>
+		</ui:composition>
+    </h:body>
+</html>

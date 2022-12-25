@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    	<title>
+    		<ui:insert name= "windowTilte" />
+ 		<h:outputStylesheet library="css" name="style.css"/>
+
+    	</title>
+    </h:head>
+
+    <h:body>
+		<ui:composition>
+			<div class="card">
+				<p:sidebar widgetVar="siderbarRight" style="background-color: rgba(255,255,255,0.9);" >
+						<p:outputLabel style="color:black;
+										font-size:30px;font-family:monospace;">#{msgs.sidebarTitle}</p:outputLabel>
+						<br/>
+						<br/>
+						<p:commandLink oncomplete="PF('siderbarRight').hide()"
+									 style="text-decoration:none;">
+							<div id="editAccount" style="height:10%;  padding-top:7%;
+													background-color:rgb(250, 249, 246); text-align: center;">	 
+								#{msgs.viewProfile}
+							</div>
+						</p:commandLink>
+						<br/>
+						<p:commandLink oncomplete="PF('siderbarRight').hide()" action="editProfile"
+										 style=" text-decoration:none;">
+							<div id="makeTransaction" style="height:10%; padding-top:7%;
+														background-color:rgb(250, 249, 246); text-align: center;">
+								#{msgs.editAccount}
+							</div>
+						</p:commandLink>
+
+				</p:sidebar>	
+							
+				
+			</div>
+		</ui:composition>
+    </h:body>
+</html>

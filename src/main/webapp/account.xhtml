@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="/resources/css/header.css" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/templates/masterLayout.xhtml">
+		<ui:define name="windowTilte">#{msgs.accountTitle}</ui:define>
+
+		<ui:define name="heading">
+			<ui:include src="/sections/login/header.xhtml" />
+		</ui:define>
+
+		<ui:define name="icon">
+			<p:commandButton icon="pi pi-user"
+				action="editProfile?faces-redirect=true"
+				style="padding-right:0;
+						float:#{view.locale.language eq 'ar' ? 'left' : 'right'};
+						 width:33px ;margin-right:5px;
+	       					padding: 3px;height:33px; vertical-align: middle;
+	       					 background-color:gray; border-color:gray" />
+		</ui:define>
+		
+		<ui:define name="content">
+
+			<ui:include src="/sections/account/createTransaction.xhtml"></ui:include>
+			<div class="card login-panel ui-fluid"
+				style="margin: auto; width: 98%; padding: 30px;">
+				<ui:include src="/sections/account/viewTransactionAccount.xhtml" />
+				
+
+	
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

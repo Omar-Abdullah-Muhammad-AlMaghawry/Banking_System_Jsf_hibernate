@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+    	<link type="text/css" rel="stylesheet" href="/resources/css/header.css" />
+    </h:head>
+
+    <h:body>
+       <ui:composition template="/templates/masterLayout.xhtml">
+
+       	<div style="background-image: url('./resources/images/bank-background.jpg');">
+	       	<ui:define name="windowTilte">#{msgs.loginTitle}</ui:define>
+		    
+		    <ui:define name="heading">
+		       		<ui:include src="/sections/login/header.xhtml" />
+	       	</ui:define>
+	       	
+	       	<ui:define name="content">
+	       		<div  class="card login-panel ui-fluid" style="margin: auto; width:40%; 
+	       		background-color: rgba(255,255,255,0.8);vertical-align:center ; padding-top: 150px; 
+	       		padding:auto; height: 500px">
+				     <h:form>
+			       	    <h:panelGrid columns="3"  style="margin: auto;">
+			       			<p:outputLabel for="userName" styleClass="block">#{msgs.userName}</p:outputLabel>
+		   					 <p:inputText id="userName" value="#{userLogin.userName}" required="true"
+		   					  			label="#{msgs.userName}" requiredMessage="#{msgs.requiredUserName}"/>
+		   					<p:message for="userName" autoUpdate="true" id="msgsUserName" style="color:red;"/>
+
+			        		<p:outputLabel for="password" styleClass="block" >#{msgs.password}</p:outputLabel>
+	            			<p:password id="password" toggleMask="true"  value="#{userLogin.password}" 
+	            						required="true" label="#{msgs.password}" requiredMessage="#{msgs.requiredPassword}"/>
+	            			<p:message for="password" autoUpdate="true" id="msgsPassword" style="color:red;"/>
+	            		
+	            		
+	            			<br />
+	            			<f:facet name="footer">
+	            				<p:commandButton value="#{msgs.register}"  action="register?faces-redirect=true" immediate="true"
+	            							 style="background-color:gray; margin-left:15%; width:100px; border-color:gray" />
+								<p:commandButton id="loginButton" value="#{msgs.login}" update="msgsUserName growl msgsPassword" action="#{userLogin.loginRedirect}" 
+									oncomplete="handleLoginRequest(xhr, status, args)" style="margin-left:15%; width:100px" />
+								
+									
+							</f:facet>
+							
+			       		</h:panelGrid>
+			       		<p:growl id="growl" showDetail="true" />
+			       		
+					</h:form>
+				</div>
+	       	</ui:define>
+	       </div>
+       </ui:composition>
+    </h:body>
+</html>

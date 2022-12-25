@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="windowTilte" /> <h:outputStylesheet
+			library="css" name="style.css" /></title>
+</h:head>
+
+<h:body>
+	<ui:composition>
+		<h:form id="mainForm" rendered="#{accountBean.isClient}">
+
+			<div class="card login-panel ui-fluid"
+				style="margin: auto; width: 80%; background-color: rgba(255, 255, 255, 0.8); padding: 30px; height: 70%">
+
+				<p:dataTable var="transaction" emptyMessage="#{msgs.emptyMessage}"
+					widgetVar="transactionTable" value="#{accountBean.transactionsAll}"
+					filteredValue="#{accountBean.filteredTransaction}"
+					rowKey="#{transaction.transactionId}" style="margin-bottom:20px"
+					paginator="true" rows="5" sortBy="#{transaction.transactionDate}"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					selectionMode="single" rowsPerPageTemplate="5,10,15"
+					selection="#{accountBean.selectedTransaction}">
+
+
+					<p:ajax event="rowSelect" listener="#{accountBean.onRowSelect}"
+						update=":mainForm:transactionDetail"
+						oncomplete="PF('transactionDialog').show()" />
+
+
+					<f:facet name="header">
+						<div class="flex align-items-center justify-content-between">
+							<span> <p:outputLabel
+									value="#{msgs.transactionListHeader}" />
+							</span> <span
+								style="float:#{view.locale.language eq 'ar' ? 'left' : 'right'}">
+								<p:outputLabel value="#{msgs.yourMoney}: ">
+								</p:outputLabel> <p:outputLabel id="money"
+									value="#{accountBean.amountFromAccount}">
+									<f:convertNumber for="money" type="currency" currencySymbol="$" />
+								</p:outputLabel>
+							</span>
+
+						</div>
+					</f:facet>
+
+					<p:column headerText="#{msgs.dataTransaction}" field="date"
+						filterMatchMode="between" sortBy="#{transaction.transactionDate}"
+						filterBy="#{transaction.transactionDate}">
+						<f:facet name="filter">
+							<p:datePicker selectionMode="range"
+								onchange="PF('transactionTable').filter()"
+								styleClass="ui-custom-filter" />
+						</f:facet>
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{transaction.transactionDate}">
+									<f:convertDateTime timeZone="GMT+3" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:datePicker value="#{transaction.transactionDate}"
+									style="width:100%" label="transactionDate" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="#{msgs.fromAccount}"
+						sortBy="#{transaction.fromAccount.accountId}"
+						filterBy="#{transaction.fromAccount.accountId}">
+
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{transaction.fromAccount.accountId}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputNumber id="modelInput"
+									value="#{transaction.fromAccount.accountId}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+
+					</p:column>
+
+					<p:column headerText="#{msgs.toAccount}"
+						sortBy="#{transaction.toAccount.accountId}"
+						filterBy="#{transaction.toAccount.accountId}">
+
+						<p:cellEditor>
+
+							<f:facet name="output">
+								<h:outputText value="#{transaction.toAccount.accountId}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{transaction.toAccount.accountId}"
+									style="width:100%" label="toAccount" />
+							</f:facet>
+						</p:cellEditor>
+
+					</p:column>
+					
+					<p:column headerText="#{msgs.amount}"
+						sortBy="#{transaction.amount}" filterBy="#{transaction.amount}">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{transaction.amount}">
+									<f:convertNumber type="currency" currencySymbol="$" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:inputNumber value="#{transaction.amount}" style="width:100%"
+									label="Price" symbol="$" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="#{msgs.transactionStatus}"
+						sortBy="#{transaction.transactionStatus}"
+						filterBy="#{transaction.transactionStatus}"
+						filterMatchMode="exact">
+						<f:facet name="filter">
+							<p:selectOneMenu onchange="PF('transactionTable').filter()"
+								styleClass="ui-custom-filter">
+								<f:selectItem itemLabel="#{msgs.all}" itemValue="#{null}"
+									noSelectionOption="true" />
+								<f:selectItems value="#{transactionBean.statusItems}" />
+							</p:selectOneMenu>
+						</f:facet>
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText
+									value="#{view.locale.language eq 'ar' ? transaction.transactionStatus.arabic : transaction.transactionStatus.english}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:selectOneMenu value="#{transaction.transactionStatus}"
+									style="width:100%">
+									<f:selectItems value="#{transactionBean.statusItems}" />
+								</h:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+
+					<p:column style="width:6rem">
+						<p:commandLink action="null" disabled="true">
+						
+							<i class="pi pi-info-circle" />
+
+							
+						</p:commandLink>
+					</p:column>
+
+				</p:dataTable>
+
+
+			</div>
+
+			<p:outputPanel id="transactionDetail" style="text-align:center;">
+
+				<p:dialog header="#{msgs.transactionDialog}"
+					widgetVar="transactionDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
+					<p:panelGrid columns="2"
+						rendered="#{not empty accountBean.selectedTransaction}"
+						columnClasses="label,value">
+
+						<h:outputText value="#{msgs.dataTransaction}" />
+						<h:outputText
+							value="#{accountBean.selectedTransaction.transactionDate}" />
+
+						<h:outputText value="#{msgs.fromAccount}" />
+						<p:column>
+
+							<h:outputText style="vertical-align: middle; margin-left: .5rem"
+								value="#{accountBean.selectedTransaction.fromAccount.accountId}" />
+						</p:column>
+
+						<h:outputText value="#{msgs.toAccount}" />
+						<h:outputText
+							value="#{accountBean.selectedTransaction.toAccount.accountId}" />
+
+						<h:outputText value="#{msgs.amount}" />
+						<h:outputText value="#{accountBean.selectedTransaction.amount}" />
+
+						<h:outputText value="#{msgs.transactionStatus}" />
+						<h:outputText
+							value="#{view.locale.language eq 'ar' ? accountBean.selectedTransaction.transactionStatus.arabic : accountBean.selectedTransaction.transactionStatus.english}" />
+
+
+						<h:outputText value="#{msgs.transactionDescription}" />
+						<h:outputText
+							value="#{accountBean.selectedTransaction.description}" />
+
+
+					</p:panelGrid>
+				</p:dialog>
+			</p:outputPanel>
+			<div class="card login-panel ui-fluid"
+				style="margin: auto; width: 98%; padding: 30px;">
+				<p:commandButton id="pdfFormatBtn" ajax="false"
+					action="#{accountBean.printWithParamInput}" value="#{msgs.generatePdf}"
+					icon="pdfIcon" />
+			</div>
+		</h:form>
+
+	</ui:composition>
+</h:body>
+</html>

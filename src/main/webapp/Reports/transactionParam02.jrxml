@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="transactionParam02" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1932b81f-8a68-443a-b1e4-91276d48d0c1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     TRANSACTION."ID" AS TRANSACTION_ID,
+     TRANSACTION."AMOUNT" AS TRANSACTION_AMOUNT,
+     TRANSACTION."DESCRIPTION" AS TRANSACTION_DESCRIPTION,
+     TRANSACTION."TRANSACTION_DATE" AS TRANSACTION_TRANSACTION_DATE,
+     TRANSACTION."TRANSACTION_STATUS" AS TRANSACTION_TRANSACTION_STATUS,
+     TRANSACTION."FROMACCOUNT_ID" AS TRANSACTION_FROMACCOUNT_ID,
+     TRANSACTION."TOACCOUNT_ID" AS TRANSACTION_TOACCOUNT_ID
+FROM
+     "OMAR"."TRANSACTION" TRANSACTION]]>
+	</queryString>
+	<field name="TRANSACTION_ID" class="java.math.BigDecimal"/>
+	<field name="TRANSACTION_AMOUNT" class="java.lang.Double"/>
+	<field name="TRANSACTION_DESCRIPTION" class="java.lang.String"/>
+	<field name="TRANSACTION_TRANSACTION_DATE" class="java.sql.Timestamp"/>
+	<field name="TRANSACTION_TRANSACTION_STATUS" class="java.math.BigDecimal"/>
+	<field name="TRANSACTION_FROMACCOUNT_ID" class="java.math.BigDecimal"/>
+	<field name="TRANSACTION_TOACCOUNT_ID" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e08d7074-1178-49d7-ab95-a63623167092" x="0" y="0" width="111" height="20"/>
+				<textElement/>
+				<text><![CDATA[TRANSACTION_TRANSACTION_DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2763170-dfe2-4c03-80e3-9ec7be53aed0" x="111" y="0" width="111" height="20"/>
+				<textElement/>
+				<text><![CDATA[TRANSACTION_FROMACCOUNT_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="537a0ad4-8373-4d89-92f6-d0f8057073d1" x="222" y="0" width="111" height="20"/>
+				<textElement/>
+				<text><![CDATA[TRANSACTION_TOACCOUNT_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f722fd1d-35e3-4d79-9643-4176b3e8bfc2" x="333" y="0" width="111" height="20"/>
+				<textElement/>
+				<text><![CDATA[TRANSACTION_AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="edbbee75-a6ae-489c-bf04-91b68c614a7c" x="444" y="0" width="111" height="20"/>
+				<textElement/>
+				<text><![CDATA[TRANSACTION_TRANSACTION_STATUS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="70335960-d063-448d-9659-49397667228c" x="0" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_TRANSACTION_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="87755ab1-1b35-45eb-bf17-8729e3c020ef" x="111" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_FROMACCOUNT_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a83af0b3-6888-448d-888e-b4981521123f" x="222" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_TOACCOUNT_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="53bc4871-ddd5-4e97-b783-2a99ad248133" x="333" y="0" width="111" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8535ee5d-b32f-49dd-a01d-8ed0c104e9f9" x="444" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_TRANSACTION_STATUS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

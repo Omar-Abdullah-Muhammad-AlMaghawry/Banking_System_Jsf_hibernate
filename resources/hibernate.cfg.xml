@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+  "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!-- Version 8 MySQL hiberante-cfg.xml example for Hibernate 5 -->
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
+    <property name="connection.url">jdbc:oracle:thin:@localhost:1521/XE</property>
+<!--      <property name="connection.username">omar</property>
+    <property name="connection.password">password</property> -->
+     
+    <property name="hibernate.connection.datasource">java:comp/env/jdbc/bankDB</property>
+    <!-- JDBC connection pool  -->
+    <property name="connection.pool_size">1</property>
+    
+    <!-- SQL dialect -->
+    <property name="dialect">org.hibernate.dialect.Oracle8iDialect</property>
+             
+	<!-- Disable the second label chache -->
+	<!--
+	 <property name="cache.provider_class">org.hibernate.cache.NoCacheRegionFactoryAvailableException</property>
+	 -->
+    <!--property name="dialect">org.hibernate.dialect.MySQLDialect</property-->
+    <property name="current_session_context_class">thread</property>
+    
+    <!-- Echo all executed SQL to stdout -->
+    <property name="show_sql">true</property>
+    
+    <property name="format_sql">true</property>
+    
+    <!-- create to Drop and recreate the database schema on startup or update if we don't wanna to drop any schema  -->
+    <property name="hbm2ddl.auto">update</property>
+    
+    <!--Naming the annotated entity class -->
+	<mapping class="com.banking.orm.Account"/>
+	<mapping class="com.banking.orm.Bank"/>
+	<mapping class="com.banking.orm.BankEmployee"/>
+	<mapping class="com.banking.orm.Client"/>
+	<mapping class="com.banking.orm.UserDetail"/>
+	
+	<mapping class="com.banking.orm.Transaction"/>
+	
+      
+  </session-factory>
+</hibernate-configuration>

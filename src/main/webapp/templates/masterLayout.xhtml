@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	dir="#{view.locale.language eq 'ar' ? 'rtl' : 'ltr'}">
+
+<h:head>
+	<title><ui:insert name="windowTilte" /></title>
+	<h:outputStylesheet library="css" name="style.css" />
+
+</h:head>
+
+<h:body>
+	<f:metadata>
+		<f:event listener="#{language.countryLocaleCode}" type="preRenderView" />
+	</f:metadata>  
+	<div
+		style="background-image: url('./resources/images/bank01.jpg'); height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;">
+		<div id="heading"
+			style="width: 100%; background-color: rgba(255, 255, 255, 0.9); padding: 1px">
+			<ui:insert name="heading">
+				<ui:include src="/sections/login/header.xhtml" />
+			</ui:insert>
+		</div>
+
+		<div id="sideBar">
+			<ui:insert name="sideBar" />
+		</div>
+
+		<div id="content" style="margin: 30px">
+			<ui:insert name="content" />
+		</div>
+
+
+		<div id="footer"
+			style="background-color: rgba(0, 0, 0, 0.5); height: 20%">
+			<ui:insert name="footer">
+				<ui:include src="/sections/login/footer.xhtml" />
+			</ui:insert>
+		</div>
+	</div>
+</h:body>
+</html>

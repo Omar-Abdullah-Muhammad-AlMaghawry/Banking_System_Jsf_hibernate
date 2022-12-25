@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="transactionParam" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="924a409e-d8ca-4ce3-8a0c-bcb2975e58af">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="detailLabel" mode="Opaque" backcolor="#666666" hAlign="Center" vAlign="Middle" fontName="Arial" fontSize="14" isBold="true" isItalic="false" isUnderline="false" pdfEncoding="Cp1256" isPdfEmbedded="true">
+		<box topPadding="1" bottomPadding="1"/>
+	</style>
+	<style name="detailField" mode="Opaque" backcolor="#999999" hAlign="Center" vAlign="Middle" fontName="Arial" fontSize="12" isBold="false" isItalic="false" isUnderline="false" pdfEncoding="Cp1256" isPdfEmbedded="true">
+		<box topPadding="1" bottomPadding="1"/>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2==0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CCCCCC" hAlign="Center" vAlign="Middle" fontName="Arial" isBold="false" isItalic="false" isUnderline="false" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="groupedBy" uuid="3fae5647-48d2-4735-b281-01e97ed6f0ec">
+		<parameter name="pSelectTranscation" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+     COUNT(TRANSACTION."ID"),
+     SUM(TRANSACTION."AMOUNT"),
+     TRANSACTION."TRANSACTION_STATUS"
+FROM
+     "OMAR"."BANK_USER" BANK_USER INNER JOIN "OMAR"."ACCOUNT" ACCOUNT ON BANK_USER."ID" = ACCOUNT."CLIENT_ID"
+     INNER JOIN "OMAR"."TRANSACTION" TRANSACTION ON ACCOUNT."ID" = TRANSACTION."FROMACCOUNT_ID"
+WHERE  ACCOUNT."CLIENT_ID" = $P{pSelectTranscation}
+GROUP BY
+     TRANSACTION."TRANSACTION_STATUS"]]>
+		</queryString>
+		<field name="COUNT(TRANSACTION.&quot;ID&quot;)" class="java.math.BigDecimal"/>
+		<field name="SUM(TRANSACTION.&quot;AMOUNT&quot;)" class="java.math.BigDecimal"/>
+		<field name="TRANSACTION_STATUS" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="pSelectTranscation" class="java.lang.String"/>
+	<parameter name="pLanguage" class="java.lang.Boolean"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\oabdullah\\Downloads\\primefaces-demo-maven\\pilot.primefaces\\src\\main\\webapp\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     TRANSACTION."ID" AS TRANSACTION_ID,
+     TRANSACTION."AMOUNT" AS TRANSACTION_AMOUNT,
+     TRANSACTION."DESCRIPTION" AS TRANSACTION_DESCRIPTION,
+     TRANSACTION."TRANSACTION_DATE" AS TRANSACTION_TRANSACTION_DATE,
+     TRANSACTION."TRANSACTION_STATUS" AS TRANSACTION_TRANSACTION_STATUS,
+     TRANSACTION."FROMACCOUNT_ID" AS TRANSACTION_FROMACCOUNT_ID,
+     TRANSACTION."TOACCOUNT_ID" AS TRANSACTION_TOACCOUNT_ID,
+     ACCOUNT."ID" AS ACCOUNT_ID,
+     ACCOUNT."AMOUNT" AS ACCOUNT_AMOUNT,
+     ACCOUNT."BANK_ID" AS ACCOUNT_BANK_ID,
+     ACCOUNT."CLIENT_ID" AS ACCOUNT_CLIENT_ID,
+     BANK_USER."ROLE" AS BANK_USER_ROLE,
+     BANK_USER."ID" AS BANK_USER_ID,
+     BANK_USER."ADDRESS" AS BANK_USER_ADDRESS,
+     BANK_USER."BIRTH_DATE" AS BANK_USER_BIRTH_DATE,
+     BANK_USER."MAIL" AS BANK_USER_MAIL,
+     BANK_USER."MOBILE" AS BANK_USER_MOBILE,
+     BANK_USER."NET_SALARY" AS BANK_USER_NET_SALARY,
+     BANK_USER."PASSWORD" AS BANK_USER_PASSWORD,
+     BANK_USER."USERNAME" AS BANK_USER_USERNAME,
+     BANK_USER."POSITION" AS BANK_USER_POSITION,
+     BANK_USER."BANK_ID" AS BANK_USER_BANK_ID
+FROM
+     "OMAR"."ACCOUNT" ACCOUNT INNER JOIN "OMAR"."TRANSACTION" TRANSACTION ON ACCOUNT."ID" = TRANSACTION."FROMACCOUNT_ID"
+     INNER JOIN "OMAR"."BANK_USER" BANK_USER ON ACCOUNT."CLIENT_ID" = BANK_USER."ID"
+WHERE
+    BANK_USER."ID" = $P{pSelectTranscation}
+ORDER BY
+     TRANSACTION."TRANSACTION_DATE" DESC]]>
+	</queryString>
+	<field name="TRANSACTION_ID" class="java.math.BigDecimal"/>
+	<field name="TRANSACTION_AMOUNT" class="java.lang.Double"/>
+	<field name="TRANSACTION_DESCRIPTION" class="java.lang.String"/>
+	<field name="TRANSACTION_TRANSACTION_DATE" class="java.sql.Timestamp"/>
+	<field name="TRANSACTION_TRANSACTION_STATUS" class="java.math.BigDecimal"/>
+	<field name="TRANSACTION_FROMACCOUNT_ID" class="java.math.BigDecimal"/>
+	<field name="TRANSACTION_TOACCOUNT_ID" class="java.math.BigDecimal"/>
+	<field name="ACCOUNT_ID" class="java.math.BigDecimal"/>
+	<field name="ACCOUNT_AMOUNT" class="java.lang.Double"/>
+	<field name="ACCOUNT_BANK_ID" class="java.math.BigDecimal"/>
+	<field name="ACCOUNT_CLIENT_ID" class="java.math.BigDecimal"/>
+	<field name="BANK_USER_ROLE" class="java.lang.String"/>
+	<field name="BANK_USER_ID" class="java.math.BigDecimal"/>
+	<field name="BANK_USER_ADDRESS" class="java.lang.String"/>
+	<field name="BANK_USER_BIRTH_DATE" class="java.sql.Timestamp"/>
+	<field name="BANK_USER_MAIL" class="java.lang.String"/>
+	<field name="BANK_USER_MOBILE" class="java.lang.String"/>
+	<field name="BANK_USER_NET_SALARY" class="java.lang.Double"/>
+	<field name="BANK_USER_PASSWORD" class="java.lang.String"/>
+	<field name="BANK_USER_USERNAME" class="java.lang.String"/>
+	<field name="BANK_USER_POSITION" class="java.lang.String"/>
+	<field name="BANK_USER_BANK_ID" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="230" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="a780d813-f965-4746-8014-d177c9102944" x="0" y="0" width="555" height="230">
+					<printWhenExpression><![CDATA[$P{pLanguage} == true]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="pSelectTranscation">
+					<subreportParameterExpression><![CDATA[$P{pSelectTranscation}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "transactionParam_Arabic.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="57526814-f5d0-4e1f-b7aa-1bd8b287838b" x="0" y="0" width="555" height="230">
+					<printWhenExpression><![CDATA[$P{pLanguage} == false]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="pSelectTranscation">
+					<subreportParameterExpression><![CDATA[$P{pSelectTranscation}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "transactionParam_English.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

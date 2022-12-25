@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	<composite:interface>
+		<composite:attribute name="updateTransaction" required="true" />	
+	</composite:interface>
+<composite:implementation>
+	<h:head>
+		<title><ui:insert name="windowTilte" /> <h:outputStylesheet
+				library="css" name="style.css" /></title>
+	</h:head>
+
+	<h:body>
+			<div class="card login-panel ui-fluid"
+				style="margin: auto; width: 80%; background-color: rgba(255, 255, 255, 0.8); padding: 30px; height: 30%">
+				<p:outputLabel
+					style="margin: 30px; color: red;  font-family:cursive; font-size:25px;vertical-align:middle">#{msgs.createTransaction}</p:outputLabel>
+
+				<p:commandButton icon="pi pi-plus-circle"
+					onclick="PF('create').show()"
+					style="padding-right:0;float:right; width:30px ;margin-right:5px;
+	       					padding: 3px;height:50px; vertical-align: middle;
+	       					 background-color:green; border-color:green" />
+				<!-- 
+				<p:commandButton icon="pi pi-filter"   onclick="PF('filter').show()"
+	       			style="padding-right:0;float:right; width:30px ;margin-right:5px;
+	       					padding: 3px;height:50px; vertical-align: middle;
+	       					 background-color:gray; border-color:gray"/>	
+				 -->
+
+				<p:dialog header="#{msgs.createDialog}" widgetVar="create"
+					modal="true" height="50%">
+					<h:form>
+						<h:panelGrid columns="3" style="margin: auto;">
+
+							<p:outputLabel for="toAccount" styleClass="block">#{msgs.toAccount}</p:outputLabel>
+							<p:inputText id="toAccount" value="#{accountBean.toAccount}"
+								required="true" label="#{msgs.toAccount}"
+								requiredMessage="#{msgs.requiredToAccount}" />
+							<p:message for="toAccount" autoUpdate="true" id="msgsToAccountC"
+								style="color:red;" />
+
+
+							<p:outputLabel for="amount" styleClass="block">#{msgs.amount}</p:outputLabel>
+							<p:inputText id="amount" label="#{msgs.amount}"
+								requiredMessage="#{msgs.requiredAmount}"
+								value="#{accountBean.amount}" required="true"
+								validatorMessage="#{msgs.validAmount}">
+								<f:convertNumber minFractionDigits="2" />
+								<f:validateDoubleRange minimum="10" maximum="1000000000" />
+							</p:inputText>
+							<p:message for="amount" autoUpdate="true" id="msgsAmountC"
+								style="color:red;" />
+
+
+
+							<p:outputLabel for="description" styleClass="block">#{msgs.description}</p:outputLabel>
+							<p:inputTextarea id="description"
+								value="#{accountBean.description}" required="true"
+								label="#{msgs.toAccount}"
+								requiredMessage="#{msgs.requiredToAccount}" />
+							<p:message for="description" autoUpdate="true"
+								id="msgsDescription" style="color:red;" />
+
+
+
+							<br />
+							<!--  action="account?faces-redirect=true"-->
+
+							<f:facet name="footer">
+								<p:commandButton value="#{msgs.cancel}"
+									onclick="PF('create').hide()" immediate="true"
+									style="background-color:red; margin-left:15%; width:100px; border-color:red" />
+								<p:commandButton value="#{msgs.transfer}"
+									update="msgsToAccountC msgsAmountC msgsDescription #{cc.attrs.updateTransaction}"
+									actionListener="#{accountBean.createTransaction}"
+									oncomplete="handleLoginRequest(xhr, status, args)"
+									style="margin-left:15%; width:100px" />
+							</f:facet>
+
+						</h:panelGrid>
+					</h:form>
+				</p:dialog>
+				<p:dialog header="#{msgs.filterDialog}" widgetVar="filter"
+					modal="true" height="50%">
+
+					<h:form>
+						<h:panelGrid columns="3" style="margin: auto;">
+							<p:outputLabel for="toAccount" styleClass="block">#{msgs.toAccount}</p:outputLabel>
+							<p:inputText id="toAccount" value="#{accountBean.toAccount}"
+								required="true" label="#{msgs.toAccount}"
+								requiredMessage="#{msgs.requiredToAccount}" />
+							<p:message for="toAccount" autoUpdate="true" id="msgsToAccountS"
+								style="color:red;" />
+
+
+							<p:outputLabel for="amount" styleClass="block">#{msgs.amount}</p:outputLabel>
+							<p:inputText id="amount" label="#{msgs.amount}"
+								requiredMessage="#{msgs.requiredAmount}"
+								value="#{accountBean.amount}" required="true"
+								validatorMessage="#{msgs.validAmount}">
+								<f:convertNumber minFractionDigits="2" />
+								<f:validateDoubleRange minimum="10" maximum="1000000000" />
+							</p:inputText>
+							<p:message for="amount" autoUpdate="true" id="msgsAmountS"
+								style="color:red;" />
+
+
+
+							<br />
+							<f:facet name="footer">
+								<p:commandButton value="#{msgs.cancel}"
+									onclick="PF('filter').hide()" immediate="true"
+									style="background-color:red; margin-left:15%; width:100px; border-color:red" />
+								<p:commandButton value="#{msgs.search}"
+									update="msgsToAccountS msgsAmountS"
+									onclick="PF('filter').hide()"
+									actionListener="#{accountBean.filterTransaction}"
+									oncomplete="handleLoginRequest(xhr, status, args)"
+									style="margin-left:15%; width:100px" />
+							</f:facet>
+
+						</h:panelGrid>
+					</h:form>
+				</p:dialog>
+
+			</div>
+	</h:body>
+</composite:implementation>
+</html>

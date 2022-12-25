@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="/resources/css/header.css" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/templates/masterLayout.xhtml">
+		<ui:define name="windowTilte">#{msgs.trasnsactionTitle}</ui:define>
+
+		<ui:define name="heading">
+			<ui:include src="/sections/login/header.xhtml" />
+		</ui:define>
+
+
+		<!-- 
+	       	<ui:define name="icon">
+	       			<p:commandButton icon="pi pi-bars" oncomplete="PF('siderbarRight').show()" 
+	       			style="padding-right:0;float:right; width:30px ;margin-right:5px;
+	       					padding: 3px;height:30px; vertical-align: middle;"/>
+	       	</ui:define>
+	       	
+ -->
+		<!-- 		<ui:define name="logout">
+			<p:commandButton action="#{userLogin.logout}" value="#{msgs.logout}"
+				style="padding-right:0;float:#{view.locale.language eq 'ar' ? 'left' : 'right'};
+				height:33px; margin-right:5px;
+	       					 vertical-align: middle; font-size:12px;
+	       					 background-color:rgb(154, 42, 42); border-color:rgb(154, 42, 42)">
+			</p:commandButton>
+		</ui:define> -->
+
+		<ui:define name="icon">
+			<p:commandButton icon="pi pi-user"
+				action="editProfile?faces-redirect=true"
+				style="padding-right:0;
+				float:#{view.locale.language eq 'ar' ? 'left' : 'right'};
+							 width:30px ;margin-right:5px;
+	       					padding: 3px;height:30px; vertical-align: middle;
+	       					 background-color:gray; border-color:gray" />
+		</ui:define>
+
+		<ui:define name="content">
+			<ui:include src="/sections/transaction/viewTransactionBar.xhtml"></ui:include>
+			<div class="card login-panel ui-fluid"
+				style="margin: auto; width: 98%; padding: 30px;">
+				<ui:include
+					src="/sections/transaction/viewTransactionTransaction.xhtml" />
+				<h:form>
+
+					<h:panelGrid columns="3" style="margin: auto;">
+					</h:panelGrid>
+
+
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

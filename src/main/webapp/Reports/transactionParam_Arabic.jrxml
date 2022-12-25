@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="transactionParam_English" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fe8e1dd7-4e4c-4033-9275-1bb61476c6f8">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="detailLabel" mode="Opaque" backcolor="#666666" hAlign="Center" vAlign="Middle" fontName="Arial" fontSize="14" isBold="true" isItalic="false" isUnderline="false" pdfFontName="com/code/resources/reports/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="false">
+		<box topPadding="1" bottomPadding="1"/>
+	</style>
+	<style name="detailField" mode="Opaque" backcolor="#999999" hAlign="Center" vAlign="Middle" fontName="Arial" fontSize="12" isBold="false" isItalic="false" isUnderline="false" pdfFontName="com/code/resources/reports/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="false">
+		<box topPadding="1" bottomPadding="1"/>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2==0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CCCCCC" hAlign="Center" vAlign="Middle" fontName="Arial" isBold="false" isItalic="false" isUnderline="false" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="groupedBy" uuid="f16d592d-0744-47e5-b70e-b9952aaad3fe">
+		<parameter name="pSelectTranscation" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+     COUNT(TRANSACTION."ID"),
+     SUM(TRANSACTION."AMOUNT"),
+     TRANSACTION."TRANSACTION_STATUS"
+FROM
+     "OMAR"."BANK_USER" BANK_USER INNER JOIN "OMAR"."ACCOUNT" ACCOUNT ON BANK_USER."ID" = ACCOUNT."CLIENT_ID"
+     INNER JOIN "OMAR"."TRANSACTION" TRANSACTION ON ACCOUNT."ID" = TRANSACTION."FROMACCOUNT_ID"
+WHERE  ACCOUNT."CLIENT_ID" = $P{pSelectTranscation}
+GROUP BY
+     TRANSACTION."TRANSACTION_STATUS"]]>
+		</queryString>
+		<field name="COUNT(TRANSACTION.&quot;ID&quot;)" class="java.math.BigDecimal"/>
+		<field name="SUM(TRANSACTION.&quot;AMOUNT&quot;)" class="java.math.BigDecimal"/>
+		<field name="TRANSACTION_STATUS" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="pSelectTranscation" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     TRANSACTION."ID" AS TRANSACTION_ID,
+     TRANSACTION."AMOUNT" AS TRANSACTION_AMOUNT,
+     TRANSACTION."DESCRIPTION" AS TRANSACTION_DESCRIPTION,
+     TRANSACTION."TRANSACTION_DATE" AS TRANSACTION_TRANSACTION_DATE,
+     TRANSACTION."TRANSACTION_STATUS" AS TRANSACTION_TRANSACTION_STATUS,
+     TRANSACTION."FROMACCOUNT_ID" AS TRANSACTION_FROMACCOUNT_ID,
+     TRANSACTION."TOACCOUNT_ID" AS TRANSACTION_TOACCOUNT_ID,
+     ACCOUNT."ID" AS ACCOUNT_ID,
+     ACCOUNT."AMOUNT" AS ACCOUNT_AMOUNT,
+     ACCOUNT."BANK_ID" AS ACCOUNT_BANK_ID,
+     ACCOUNT."CLIENT_ID" AS ACCOUNT_CLIENT_ID,
+     BANK_USER."ROLE" AS BANK_USER_ROLE,
+     BANK_USER."ID" AS BANK_USER_ID,
+     BANK_USER."ADDRESS" AS BANK_USER_ADDRESS,
+     BANK_USER."BIRTH_DATE" AS BANK_USER_BIRTH_DATE,
+     BANK_USER."MAIL" AS BANK_USER_MAIL,
+     BANK_USER."MOBILE" AS BANK_USER_MOBILE,
+     BANK_USER."NET_SALARY" AS BANK_USER_NET_SALARY,
+     BANK_USER."PASSWORD" AS BANK_USER_PASSWORD,
+     BANK_USER."USERNAME" AS BANK_USER_USERNAME,
+     BANK_USER."POSITION" AS BANK_USER_POSITION,
+     BANK_USER."BANK_ID" AS BANK_USER_BANK_ID
+FROM
+     "OMAR"."ACCOUNT" ACCOUNT INNER JOIN "OMAR"."TRANSACTION" TRANSACTION ON ACCOUNT."ID" = TRANSACTION."FROMACCOUNT_ID"
+     INNER JOIN "OMAR"."BANK_USER" BANK_USER ON ACCOUNT."CLIENT_ID" = BANK_USER."ID"
+WHERE
+    BANK_USER."ID" = $P{pSelectTranscation}
+ORDER BY
+     TRANSACTION."TRANSACTION_DATE" DESC]]>
+	</queryString>
+	<field name="TRANSACTION_ID" class="java.math.BigDecimal"/>
+	<field name="TRANSACTION_AMOUNT" class="java.lang.Double"/>
+	<field name="TRANSACTION_DESCRIPTION" class="java.lang.String"/>
+	<field name="TRANSACTION_TRANSACTION_DATE" class="java.sql.Timestamp"/>
+	<field name="TRANSACTION_TRANSACTION_STATUS" class="java.math.BigDecimal"/>
+	<field name="TRANSACTION_FROMACCOUNT_ID" class="java.math.BigDecimal"/>
+	<field name="TRANSACTION_TOACCOUNT_ID" class="java.math.BigDecimal"/>
+	<field name="ACCOUNT_ID" class="java.math.BigDecimal"/>
+	<field name="ACCOUNT_AMOUNT" class="java.lang.Double"/>
+	<field name="ACCOUNT_BANK_ID" class="java.math.BigDecimal"/>
+	<field name="ACCOUNT_CLIENT_ID" class="java.math.BigDecimal"/>
+	<field name="BANK_USER_ROLE" class="java.lang.String"/>
+	<field name="BANK_USER_ID" class="java.math.BigDecimal"/>
+	<field name="BANK_USER_ADDRESS" class="java.lang.String"/>
+	<field name="BANK_USER_BIRTH_DATE" class="java.sql.Timestamp"/>
+	<field name="BANK_USER_MAIL" class="java.lang.String"/>
+	<field name="BANK_USER_MOBILE" class="java.lang.String"/>
+	<field name="BANK_USER_NET_SALARY" class="java.lang.Double"/>
+	<field name="BANK_USER_PASSWORD" class="java.lang.String"/>
+	<field name="BANK_USER_USERNAME" class="java.lang.String"/>
+	<field name="BANK_USER_POSITION" class="java.lang.String"/>
+	<field name="BANK_USER_BANK_ID" class="java.math.BigDecimal"/>
+	<variable name="vTransactionCount" class="java.math.BigDecimal" calculation="Count">
+		<variableExpression><![CDATA[$F{TRANSACTION_ID}]]></variableExpression>
+	</variable>
+	<variable name="vTransactionAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TRANSACTION_AMOUNT}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1154bd48-d3be-4786-b27b-33f00bc3ded3" x="0" y="0" width="555" height="79"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" pdfFontName="com/code/resources/reports/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[جميع التحويلات النقدية]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8c7d3201-fd31-438e-b83d-82e14e66faee" style="detailLabel" x="0" y="0" width="111" height="20"/>
+				<textElement>
+					<font fontName="Arial" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[الحالة
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2f991f0a-649a-42ac-838f-d3a18cf4324b" style="detailLabel" x="111" y="0" width="111" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[مقدار المال]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="356da630-f85b-4bae-9c2c-2ca035b1f027" style="detailLabel" x="333" y="0" width="111" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[من حساب]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3496543d-05ad-4636-9ba3-e0a2e4e698e4" style="detailLabel" x="222" y="0" width="111" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[الى حساب]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="336fd4d9-788f-4d20-95e6-65babae8bd4d" style="detailLabel" x="444" y="0" width="111" height="20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[التاريخ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4fcecbfb-6b51-45b0-b53c-b46041e3178d" style="detailField" x="0" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_TRANSACTION_STATUS}.intValue() == 0 ? "مقبول": $F{TRANSACTION_TRANSACTION_STATUS}.intValue() == 1 ? "قيد الانتظار" : "مرفوض"]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="0475d94d-290a-465a-be81-ba62406ef0a1" style="detailField" x="111" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="096ce35f-0686-4180-8184-a1c4a67fcf62" style="detailField" x="333" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_FROMACCOUNT_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7721df2a-541c-40b7-a669-437ab7c21a2f" style="detailField" x="222" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_TOACCOUNT_ID}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement uuid="86068acb-5f26-455d-abe7-1943900e82b6" style="detailField" x="444" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION_TRANSACTION_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="34">
+			<textField>
+				<reportElement uuid="ef07fd69-2bbe-4552-8801-93dd502f3166" x="455" y="0" width="100" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="218" splitType="Stretch">
+			<pieChart>
+				<chart renderType="image">
+					<reportElement uuid="cf3a0083-d3c5-4e61-8a63-f97d56ed09c1" mode="Transparent" x="0" y="0" width="555" height="173"/>
+					<chartTitle>
+						<font fontName="Arial" pdfFontName="com/code/resources/reports/ARIAL.TTF" pdfEncoding="Identity-H"/>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="Arial" pdfFontName="com/code/resources/reports/ARIAL.TTF" pdfEncoding="Identity-H"/>
+					</chartSubtitle>
+					<chartLegend position="Right">
+						<font fontName="Arial" pdfFontName="com/code/resources/reports/ARIAL.TTF" pdfEncoding="Identity-H"/>
+					</chartLegend>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="groupedBy" uuid="6e50f9b2-4f10-402f-9f84-97f308fd5e1e">
+							<datasetParameter name="pSelectTranscation">
+								<datasetParameterExpression><![CDATA[$P{pSelectTranscation}]]></datasetParameterExpression>
+							</datasetParameter>
+						</datasetRun>
+					</dataset>
+					<keyExpression><![CDATA[$F{TRANSACTION_STATUS}.intValue() == 0 ?" مقبول "+$F{SUM(TRANSACTION."AMOUNT")}.toString()+"$ ": $F{TRANSACTION_STATUS}.intValue() == 1 ?" قيد الانتظار " + $F{SUM(TRANSACTION."AMOUNT")}.toString()+"$ ": " مرفوض "+ $F{SUM(TRANSACTION."AMOUNT")}.toString() +"$ "]]></keyExpression>
+					<valueExpression><![CDATA[$F{COUNT(TRANSACTION."ID")}]]></valueExpression>
+					<labelExpression><![CDATA[$F{TRANSACTION_STATUS}.intValue() == 0 ?$F{COUNT(TRANSACTION."ID")}.toString()+ " مقبول " : $F{TRANSACTION_STATUS}.intValue() == 1 ? $F{COUNT(TRANSACTION."ID")}.toString() + " قيد الانتظار ": $F{COUNT(TRANSACTION."ID")}.toString()+ " مرفوض "]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF">
+						<font fontName="Arial" isStrikeThrough="false" pdfFontName="com/code/resources/reports/ARIAL.TTF" pdfEncoding="Identity-H"/>
+					</itemLabel>
+				</piePlot>
+			</pieChart>
+			<textField>
+				<reportElement uuid="226236e5-3f6f-4823-b67d-16e033b3ceb0" x="0" y="183" width="100" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" pdfEncoding="Cp1256"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3ab31fb8-98c0-41b5-a6b0-4db436a77913" x="111" y="184" width="111" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="com/code/resources/reports/ARIAL.TTF" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[عدد التحويلات النقدية]]></text>
+			</staticText>
+		</band>
+	</summary>
+	<noData>
+		<band height="114">
+			<staticText>
+				<reportElement uuid="1b336864-9456-4a93-a3b2-1738edc3c08c" x="0" y="0" width="555" height="114"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" pdfEncoding="Cp1256"/>
+				</textElement>
+				<text><![CDATA[هذا الحساب ليس موجود]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

@@ -1,0 +1,43 @@
+.title{
+	
+	margin: 30px;
+	 color: gray;
+	 font-family: fantasy;
+	 font-size:65px;
+	 vertical-align: middle 
+	 
+	
+}
+.headerM{
+	vertical-align: middle; 
+	margin-bottom: 20px;
+	margin-top: 20px; 
+ 
+}
+.loginDiv{
+	margin: auto; 
+	width:40%;
+	 background-color: rgba(255,255,255,0.9);
+	  padding: auto;
+	   height: 500px
+}
+.login{
+	
+	 margin: auto; 
+	 width:40%; 
+	 background-color: green; 
+	 padding: auto; 
+	 height: 500px
+}
+
+.english{
+	
+	text-decoration: none; 
+	margin-left:20%; 
+	height:10%;
+}
+.register{
+	
+	background-color:gray; margin-left:15%; width:100px; border-color:gray
+}
+
